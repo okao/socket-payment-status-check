@@ -13,7 +13,7 @@ export const defaultSocketContextState: ISocketContextState = {
     users: []
 };
 
-export type TSocketContextActions = 'update_socket' | 'update_uid' | 'update_users' | 'remove_user';
+export type TSocketContextActions = 'update_socket' | 'update_uid' | 'update_users' | 'remove_user' | 'sendPayment' | 'receivePayment';
 export type TSocketContextPayload = string | string[] | Socket;
 
 export interface ISocketContextActions {
@@ -26,12 +26,19 @@ export const SocketReducer = (state: ISocketContextState, action: ISocketContext
 
     switch (action.type) {
         case 'update_socket':
+            console.log('Updating socket ...');
             return { ...state, socket: action.payload as Socket };
         case 'update_uid':
             return { ...state, uid: action.payload as string };
         case 'update_users':
             return { ...state, users: action.payload as string[] };
         case 'remove_user':
+            return { ...state, users: state.users.filter((uid) => uid !== (action.payload as string)) };
+        case 'sendPayment':
+            console.log('Sending payment ...');
+            return { ...state, users: state.users.filter((uid) => uid !== (action.payload as string)) };
+        case 'receivePayment':
+            console.log('Receiving payment ...');
             return { ...state, users: state.users.filter((uid) => uid !== (action.payload as string)) };
         default:
             return state;

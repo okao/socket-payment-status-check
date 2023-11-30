@@ -58,4 +58,6 @@ application.use((req, res, next) => {
 });
 
 /** Listen */
-httpServer.listen(1337, () => console.info(`Server is running`));
+httpServer.listen(1337, () => {
+    console.info('Server running on port 1337');
+});

@@ -15,6 +15,7 @@ const SocketContextComponent: React.FunctionComponent<ISocketContextComponentPro
 
     const [SocketState, SocketDispatch] = useReducer(SocketReducer, defaultSocketContextState);
     const [loading, setLoading] = useState(true);
+    //pass redisClient to children
 
     useEffect(() => {
         socket.connect();
@@ -58,8 +59,6 @@ const SocketContextComponent: React.FunctionComponent<ISocketContextComponentPro
     };
 
     const SendHandshake = async () => {
-        console.info('Sending handshake to server ...');
-
         socket.emit('handshake', async (uid: string, users: string[]) => {
             console.info('User handshake callback message received');
             SocketDispatch({ type: 'update_users', payload: users });
